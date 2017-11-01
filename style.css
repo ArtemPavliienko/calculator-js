@@ -1,0 +1,26 @@
+body {
+    background: #394062;
+}
+.center {
+    width: 300px;
+    margin: 30px auto;
+}
+.button {
+    width: 55px;
+    height: 30px;
+}
+.keys {
+    text-align: center;
+}
+#display {
+    width: 100%;
+}
+.display input {
+    position: relative;
+    left: 2px;
+    top: 2px;
+    height: 35px;
+    color: black;
+    text-align: center;
+    font-size: 21px;
+}
