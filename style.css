@@ -15,7 +15,7 @@ body {
 #display {
     width: 100%;
 }
-.display input {
+.display input, .display button {
     position: relative;
     left: 2px;
     top: 2px;

@@ -5,6 +5,7 @@ var numbersBtn = document.querySelectorAll('.number'),
     decimalBtn = document.getElementById('decimal'),
     clearsBtn = document.querySelectorAll('.clear'),
     display =  document.getElementById('display'),
+    mathsBtn = document.querySelectorAll('.math'),
     memoryCurrentNumber = 0,
     memoryNewNumber = false,
     memoryPendingOperation = '';
@@ -25,8 +26,14 @@ for (var i = 0; i < numbersBtn.length; i++) {
 for (var i = 0; i < operationsBtn.length; i++) {
     var operation = operationsBtn[i];
     operation.addEventListener('click', function (e) {
-        // если например button
         operations(e.target.value);
+    });
+}
+
+for (var i = 0; i < mathsBtn.length; i++) {
+    var math = mathsBtn[i];
+    math.addEventListener('click', function (e) {
+        maths(e.target.value);
     });
 }
 // удалить последний эл или всю строку
@@ -62,6 +69,7 @@ function operations(symbol) {
     // храним то что уже есть в инпуте, и потом проводить с ним операции и новым числом
     var localOperationMemory = display.value;
 
+
     if (memoryNewNumber && memoryPendingOperation !== '=') {
         display.value = memoryCurrentNumber;
     } else {
@@ -69,22 +77,42 @@ function operations(symbol) {
 
         if (memoryPendingOperation === '+') {
             memoryCurrentNumber += parseFloat(localOperationMemory);
+
         } else if (memoryPendingOperation === '-') {
             memoryCurrentNumber -= parseFloat(localOperationMemory);
+
         } else if (memoryPendingOperation === '*') {
             memoryCurrentNumber *= parseFloat(localOperationMemory);
+
         } else if (memoryPendingOperation === '/') {
             memoryCurrentNumber /= parseFloat(localOperationMemory);
-        } else {
+
+        }else {
             memoryCurrentNumber = parseFloat(localOperationMemory);
         }
 
-        display.value = memoryCurrentNumber;
+        display.value = +memoryCurrentNumber.toFixed(5);
         memoryPendingOperation = symbol;
     }
 
 
     console.log('click oper ' + symbol);
+}
+
+function maths(M) {
+    var localMathMemory = display.value;
+
+    if (M === 'plusMin') {
+        memoryCurrentNumber = parseFloat(localMathMemory * -1);
+
+    } else if (M === 'radic') {
+        memoryCurrentNumber = Math.sqrt(parseFloat(localMathMemory));
+
+    } else if (M === 'xSup2') {
+        memoryCurrentNumber = Math.pow(parseFloat(localMathMemory), 2);
+    }
+
+    display.value = memoryCurrentNumber;
 }
 
 // point
