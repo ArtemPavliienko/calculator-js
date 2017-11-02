@@ -1,16 +1,13 @@
-//'use strict';
+'use strict';
 
 var numbersBtn = document.querySelectorAll('.number'),
     operationsBtn = document.querySelectorAll('.operation'),
     decimalBtn = document.getElementById('decimal'),
     clearsBtn = document.querySelectorAll('.clear'),
-    resultBtn = document.getElementById('e'),
     display =  document.getElementById('display'),
     memoryCurrentNumber = 0,
     memoryNewNumber = false,
     memoryPendingOperation = '';
-
-
 
 // memoryCurrentNumber - временное хранение числа
 // memoryNewNumber - ввели мы новое число, или нет.
@@ -29,8 +26,6 @@ for (var i = 0; i < operationsBtn.length; i++) {
     var operation = operationsBtn[i];
     operation.addEventListener('click', function (e) {
         // если например button
-        console.log(e.target.textContent);
-        console.log(operation.value);
         operations(e.target.value);
     });
 }
@@ -44,7 +39,6 @@ for (var i = 0; i < clearsBtn.length; i++) {
 }
 
 decimalBtn.addEventListener('click', decimal);
-resultBtn.addEventListener('click', operations);
 
 // Функции работы
 function numberPress(number) {
@@ -102,6 +96,7 @@ function decimal() {
         localDecimalMemory = '0.';
         memoryNewNumber = false;
     } else {
+        // если не существует (-1) то мы добавляем точку
         if (localDecimalMemory.indexOf('.') === -1) {
             localDecimalMemory += '.';
         }
@@ -111,5 +106,19 @@ function decimal() {
 }
 
 function clears(id) {
+    if (id === 'del') {
+
+        var del = display.value;
+        display.value = del.slice(0, del.length -1);
+
+        memoryNewNumber = true;
+    } else if (id === 'ce') {
+        // очищаем всю память
+        display.value = '0';
+        memoryNewNumber = true;
+        memoryCurrentNumber = 0;
+        memoryPendingOperation = '';
+    }
+
     console.log('click ' + id + '!');
 }
